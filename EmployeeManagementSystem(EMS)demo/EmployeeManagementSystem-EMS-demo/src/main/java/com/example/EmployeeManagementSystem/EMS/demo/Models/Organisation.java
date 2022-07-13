@@ -4,11 +4,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+//@Data
 @Entity
 @Table
 public class Organisation {
@@ -23,28 +28,28 @@ List<Employee> employeeList;
     @JsonManagedReference
 @OneToMany(mappedBy = "organisation")
     List<Asset> assetList;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
-    public List<Asset> getAssetList() {
-        return assetList;
-    }
-
-    public void setAssetList(List<Asset> assetList) {
-        this.assetList = assetList;
-    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public List<Employee> getEmployeeList() {
+//        return employeeList;
+//    }
+//
+//    public void setEmployeeList(List<Employee> employeeList) {
+//        this.employeeList = employeeList;
+//    }
+//
+//    public List<Asset> getAssetList() {
+//        return assetList;
+//    }
+//
+//    public void setAssetList(List<Asset> assetList) {
+//        this.assetList = assetList;
+//    }
 }

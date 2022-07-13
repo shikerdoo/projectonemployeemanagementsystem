@@ -5,6 +5,7 @@ import com.example.EmployeeManagementSystem.EMS.demo.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,21 @@ public class EmployeeController {
         return employeeService.getAllEmployee();
     }
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable("id") int id)
+    public ResponseEntity<?> getEmployeeById(@PathVariable("id") int id)
     {
-        return employeeService.getEmployeeById(id);
+        Employee employee= (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if(employee.getId()==id || employee.getRole().getName().equals("ROLE_ADMIN"))
+//        return employeeService.getEmployeeById(id);
+       return new ResponseEntity<>(employeeService.getEmployeeById(id),HttpStatus.OK);
+
+        else
+            return new ResponseEntity<>("not possible",HttpStatus.UNAUTHORIZED);
     }
     @PutMapping("/update/{id}")
     public Employee updateEmployee(@PathVariable("id")int id,@RequestBody Employee employee)
     {
+
         return (employeeService.updateEmployee(employee,id));
     }
     @DeleteMapping("/delete/{id}")

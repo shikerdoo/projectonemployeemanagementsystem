@@ -36,7 +36,7 @@ public class RoleServiceImpl implements RoleService{
     public Role updateRole(Role role, int id) {
         Role existingRole=roleRepository.findById(id).orElseThrow();
         existingRole.setName(role.getName());
-
+       roleRepository.save(existingRole);
         return existingRole;
     }
 

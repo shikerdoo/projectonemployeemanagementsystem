@@ -22,10 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests().
-    antMatchers("/api/**/create").hasAnyRole("USER","ADMIN").
-                antMatchers("/api/**/delete/**").hasAnyRole("USER","ADMIN").
-    antMatchers("/api/**/all").authenticated().
-    antMatchers("/api/employee/update/**").authenticated().
+    antMatchers("/api/employee/create").hasAnyRole("USER","ADMIN").
+                antMatchers("/api/asset/create").hasAnyRole("ADMIN").
+                antMatchers("/api/organisation/create").hasAnyRole("ADMIN").
+                antMatchers("/api/employee/{id}").hasAnyRole("ADMIN","USER").
+                antMatchers("/api/**/delete/**").hasAnyRole("ADMIN").
+    antMatchers("/api/**/all").hasAnyRole("ADMIN").
     antMatchers("/api/**/update/**").hasAnyRole("ADMIN").anyRequest().authenticated().and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

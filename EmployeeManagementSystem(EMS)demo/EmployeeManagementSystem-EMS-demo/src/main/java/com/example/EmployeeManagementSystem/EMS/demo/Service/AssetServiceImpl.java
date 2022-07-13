@@ -36,7 +36,7 @@ public class AssetServiceImpl implements AssetService{
         existingAsset.setShortname(asset.getShortname());
         existingAsset.setSalary(asset.getSalary());
         existingAsset.setLeaves(asset.getLeaves());
-
+       assetRepository.save(existingAsset);
         return existingAsset;
     }
 
